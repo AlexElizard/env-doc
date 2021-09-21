@@ -1,4 +1,4 @@
-# Установка NodeJS
+# Установка NodeJS в Debian
 * Скачайте скрипт установки предпочитаемой версии :
 ```
 cd ~ && mkdir -p nodejs && cd nodejs && curl -sL https://deb.nodesource.com/setup_15.x -o nodesource_setup.sh

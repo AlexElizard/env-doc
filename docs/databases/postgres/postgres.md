@@ -1,33 +1,8 @@
 # Установка и настройка PostgreSQL
-## Установка через репозиторий
-### Debian
-* Подключите apt-репозиторий
-```
-sudo sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list'
-```
-* Скачайте ключ проверки для apt
-```
-wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
-```
-* Установите PostgreSQL
-```
-sudo apt-get update && sudo apt install postgresql
-```
-### Arch
-* Установите PostgreSQL
-```
-sudo pacman -Suy postgresql
-```
-* Инициализируйте кластер базы данных
-```
-sudo su postgres
-initdb --locale $LANG -E UTF8 -D '/var/lib/postgres/data/'
-exit
-```
-* Запустите PostgreSQL-сервер и добавьте его запуск в автозагрузку
-```
-sudo systemctl enable --now postgresql
-```
+## Установка
+* [Arch Linux](install/arch.md)
+* [Debian](install/debian.md)
+
 ## Создание базы данных
 * Подключитесь к БД
 ```
@@ -54,14 +29,16 @@ exit
 # Расширения (Опционально)
 ## PostGIS (для работы с Geo-данными)
 ###  Установка
-#### Debian
 * Установите PostGIS
 ```
+##########
+# Debian #
+##########
 sudo apt-get update && sudo apt install postgis
-```
-#### Arch
-* Установите PostGIS
-```
+
+##############
+# Arch Linux #
+##############
 sudo pacman -Suy postgis
 ```
 ### Включение расширения

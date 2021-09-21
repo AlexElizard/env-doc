@@ -66,7 +66,7 @@ server {
 ```
 
 # Расширения (Опционально). Установка через пересборку
-## Nginx spnego module
+## Nginx spnego module (для SSO аутентификации)
 * Узнайте версию установленного nginx
 ```
 nginx -V
@@ -104,4 +104,47 @@ make -j 4 && sudo make install
 * Удалите файлы сборки
 ```
 cd ~ && sudo rm -rf /tmp/nginx-${NGINX_VERSION}*
+```
+* Установите и настройте [Kerberos](kerberos.md)
+* Добавьте в файл конфигурации маршрут `/sso`
+```
+# /etc/nginx/conf.d/example.conf
+server {
+    ...
+   
+    location /sso {
+        auth_gss on;                                                    
+        auth_gss_allow_basic_fallback on; 
+        try_files $uri @backend;
+        
+        ###################################
+        # Для однодоменной аутентификации #                                      
+        ###################################
+        auth_gss_realm DOMAIN.LOCAL;
+        auth_gss_keytab /etc/krb5.keytab;
+        auth_gss_service_name HTTP/example.com;
+        
+        #####################################
+        # Для мультидоменной аутентификации #
+        #####################################
+        auth_gss_format_full on; 
+        auth_gss_keytab /etc/krb5_multidomain.keytab;
+    }
+}
+```
+* Добавьте в файл конфигурации в `@backend` заголовок `X-Forwarded-User`
+```
+# /etc/nginx/conf.d/example.conf
+
+server {
+    ...
+   
+    location @backend {
+        ...
+        proxy_set_header X-Forwarded-User $remote_user;
+        ...
+    }
+    
+    ...
+}
 ```

@@ -1,24 +1,6 @@
-# Установка Python
-## Установка зависимостей для сборки в Debian
-```
-sudo apt update && sudo apt install \
-build-essential \
-curl \
-libbz2-dev \
-libffi-dev \
-libgdbm-dev \
-liblzma-dev \
-libncurses5-dev \
-libnss3-dev \
-libreadline-dev \
-libsqlite3-dev \
-libssl-dev \
-pipenv \
-wget \
-zlib1g-dev
-```
-
-## Сборка из исходников
+# Установка Python из исходников
+* Установите зависимости:
+  * [Debian](dependencies/debian.md)
 * Создайте переменную окружения ***PYTHON_VERSION***. <br>Cписок доступных версий можно увидеть на [странице загрузки Python](https://www.python.org/downloads/source/)
 ```
 PYTHON_VERSION=3.9.6
